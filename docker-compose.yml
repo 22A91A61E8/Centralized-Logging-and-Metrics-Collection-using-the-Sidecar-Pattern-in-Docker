@@ -1,0 +1,69 @@
+services:
+  log-aggregator:
+    build: ./log-aggregator
+    container_name: log-aggregator
+    ports:
+      - "8080:8080"
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "3001:3001"
+    volumes:
+      - user_logs:/logs
+    depends_on:
+      - log-aggregator
+
+  user-logging-sidecar:
+    build: ./user-logging-sidecar
+    container_name: user-logging-sidecar
+    volumes:
+      - user_logs:/logs
+    depends_on:
+      - user-service
+      - log-aggregator
+
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    ports:
+      - "3002:3002"
+    volumes:
+      - product_logs:/logs
+    depends_on:
+      - log-aggregator
+
+  product-logging-sidecar:
+    build: ./product-logging-sidecar
+    container_name: product-logging-sidecar
+    volumes:
+      - product_logs:/logs
+    depends_on:
+      - product-service
+      - log-aggregator
+
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    ports:
+      - "3003:3003"
+    volumes:
+      - order_logs:/logs
+    depends_on:
+      - log-aggregator
+
+  order-logging-sidecar:
+    build: ./order-logging-sidecar
+    container_name: order-logging-sidecar
+    volumes:
+      - order_logs:/logs
+    depends_on:
+      - order-service
+      - log-aggregator
+
+volumes:
+  user_logs:
+  product_logs:
+  order_logs:
+

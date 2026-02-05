@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+*.ipynb
+node_modules/
+anaconda3/
+Videos/
+WPS Cloud Files/
+ntuser.dat*
+
