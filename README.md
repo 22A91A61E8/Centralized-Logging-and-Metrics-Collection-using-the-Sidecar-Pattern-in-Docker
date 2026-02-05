@@ -31,3 +31,33 @@ Each main service has a sidecar for logging and metrics.
 ---
 
 ## Step 4: Project Structure
+docker-sidecar-demo/
+│
+├── docker-compose.yml
+├── .env.example
+├── README.md
+│
+├── user-service/
+├── user-logging-sidecar/
+├── user-metrics-sidecar/
+│
+├── product-service/
+├── product-logging-sidecar/
+├── product-metrics-sidecar/
+│
+├── order-service/
+├── order-logging-sidecar/
+├── order-metrics-sidecar/
+│
+├── logging-sidecar/
+└── log-aggregator/
+## Step 5:Prerequisites
+Docker
+Docker Compose
+Start all services
+docker-compose up --build
+This command:
+Starts all services
+Starts all sidecars
+Starts the log aggregator
+Connects everything automatically
